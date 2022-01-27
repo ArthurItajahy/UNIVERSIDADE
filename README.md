@@ -22,6 +22,3 @@
 # Eu sou o Homem de ferro
 ````
 
-# Ideias
-````
-
