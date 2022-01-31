@@ -1,4 +1,4 @@
-package Aplication;
+package Entities;
 
 public class Professor {
 	private static int geraId=0;
@@ -91,7 +91,7 @@ public class Professor {
 
 	@Override
 	public String toString() {
-		return ("ID: " + id + ", profª " + name );
+		return ("ID: " + id + ", profï¿½ " + name );
 	}
 
 }
