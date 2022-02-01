@@ -8,7 +8,7 @@ public class Turma {
 	private String nomeCurso;
 	private String nomeTurma;
 	
-	public Turmas(String nomeTurma, String nomeAluno, String nomeProfessor,
+	public Turma(String nomeTurma, String nomeAluno, String nomeProfessor,
 			int id, String nomeCurso)
 	{   
 		this.id = id;

@@ -1,12 +1,17 @@
 package Aplication;
 
 import Entities.BancoDados;
+
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
 
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
+		System.out.println("Entre com o nome da faculdade: ");
+		String nome = input.next();
+		BancoDados uni = new BancoDados(nome);
 		boolean forward = true;
 
 		while(forward){
@@ -25,9 +30,15 @@ public class Main {
 						switch (escolha2){
 							case "1":
 								//login estudante
+								if(uni.procuraEstudantes()){
+
+								}
 								break;
 							case "2":
 								//login professor
+								if(uni.procuraProfessor()){
+
+								}
 								break;
 							case "3":
 								//Exit
@@ -46,10 +57,12 @@ public class Main {
 						String escolha2 = input.next();
 						switch (escolha2){
 							case "1":
-								//Cadastro estudante
+								//CRIA ALUNO
+								uni.criaEstudante();
 								break;
 							case "2":
-								//login professor
+								//CRIA PROFESSOR
+								uni.criaProfessor();
 								break;
 							case "3":
 								//Exit
