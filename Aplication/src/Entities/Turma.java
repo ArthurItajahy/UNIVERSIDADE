@@ -17,39 +17,31 @@ public class Turma {
 		this.nomeCurso = nomeCurso;
 		this.nomeTurma = nomeTurma;
 	}
-
-
-	public int getId() {
-		return id;
-	}
-	public String getNomeAluno() {
-		return nomeAluno;
-	}
-	public String getNomeProfessor() {
-		return nomeProfessor;
-	}
-	public String getNomeCurso() {
-		return nomeCurso;
-	}
-	public String getNomeTurma() {
-		return nomeTurma;
-	}
+	//---------------------GETTER---------------------
 	
+	public int getId() {
+		return id;}
+	public String getNomeAluno() {
+		return nomeAluno;}
+	public String getNomeProfessor() {
+		return nomeProfessor;}
+	public String getNomeCurso() {
+		return nomeCurso;}
+	public String getNomeTurma() {
+		return nomeTurma;}
+	
+	//----------------------SETTERS(ADD)-----------------------
 	
 	public void setId(int id) {
 		this.id = id;}
 	public void setNomeAluno(String nomeAluno) {
-		this.nomeAluno = nomeAluno;
-	}
+		this.nomeAluno = nomeAluno;}
 	public void setNomeProfessor(String nomeProfessor) {
-		this.nomeProfessor = nomeProfessor;
-	}
+		this.nomeProfessor = nomeProfessor;}
 	public void setNomeCurso(String nomeCurso) {
-		this.nomeCurso = nomeCurso;
-	}
+		this.nomeCurso = nomeCurso;}
 	public void setNomeTurma(String nomeTurma) {
-		this.nomeTurma = nomeTurma;
-	}
+		this.nomeTurma = nomeTurma;}
 
 	/*public String nomeTurma() {
        
