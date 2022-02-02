@@ -1,0 +1,7 @@
+.gitiginore
+.metadata
+.classph
+.settings
+bin
+.project
+aplication.iml
