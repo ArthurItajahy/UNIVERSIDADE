@@ -2,7 +2,7 @@ package Aplication;
 
 import Entities.BancoDados;
 
-import java.sql.SQLOutput;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -25,51 +25,215 @@ public class Main {
 				case "1":
 					do {
 						System.out.println("-----------PAGINA LOGIN----------");
-						System.out.print("\n\t\t\t1 - Estudante \n\t\t\t2 - Professor\n\t\t3 - Exit\n\t\t\tEscolha(1/2/3): ");
+						System.out.print("\n\t\t\t1 - Estudante \n\t\t\t2 - Professor\n\t\t\t3 - Gerente\n\t\t\t4 - Exit\n\t\t\tEscolha(1/2/3/4): ");
 						String escolha2 = input.next();
-						switch (escolha2){
+						switch (escolha2) {
 							case "1":
+								boolean continua = true;
+								boolean cont = true;
 								//login estudante
-								if(uni.procuraEstudantes()){
-
+								while (continua){
+									boolean achou = false;
+									int mid = uni.procurarEstudande();
+									if (mid >= 0){
+										achou = true;
+										System.out.println("-----------PAGINA DO ESTUDANTE----------");
+										System.out.println("\t\t\tSEJA BEM-VINDO: " + uni.getEstudantes().get(mid).getNome());
+										//--> Aluno terá que pagar mensalidade.
+										//--> Poderá ver sua nota.
+										while (cont){
+											System.out.print("\n\t\t\t1 - Pagar Mensalidade\n\t\t\t2-Ver notas\n\t\t\t3-Deslogar\n\t\t\tEscolha: ");
+											String escolhendo = input.next();
+											switch (escolhendo){
+													case "1":
+														if(uni.pagarMensalidade(uni.getEstudantes().get(mid))){
+															System.out.println("Pago com Sucesso.");
+														}
+														break;
+													case "2":
+														uni.getEstudantes().get(mid).verificarNota();
+														break;
+													case "3":
+														cont = false;
+														continua = false;
+														break;
+													default:
+														System.out.println("\t\t\tEscolha Invalida.");
+												}
+											}
+										}
+									if(!achou){
+										// Não encontre perguntar se quer sair.
+										System.out.println("\t\t\tNão encontrado.");
+										System.out.print("\n\t\t\tDeseja sair?\n\t\t\t1-Sim\n\t\t\t2-Não\n\t\t\tEscolha: ");
+										String choice = input.next();
+										if(Objects.equals(choice, "1")){
+											continua = false;
+										}else{
+											System.out.println("Carregando...");
+										}
+									}
 								}
 								break;
 							case "2":
 								//login professor
-								if(uni.procuraProfessor()){
+								continua = true;
+								cont = true;
+								while (continua){
+									boolean achou = false;
+									int mid = uni.procurarProfessor();
+									if (mid >= 0){
+										achou = true;
+										System.out.println("-----------PAGINA DO PROFESSOR----------");
+										System.out.println("\t\t\tSEJA BEM-VINDO: " + uni.getProfessors().get(mid).getNome());
+										// --> O Professor pode ver se o status se o salario dele foi pago.
+										// --> O PROFESSO PODERÁ DAR NOTAS.
+										while (cont){
+											System.out.print("\n\t\t\t1 - Ver status do salario\n\t\t\t2 - Dar nota\n\t\t\t3-Deslogar\n\t\t\tEscolha: ");
+											String escolhendo = input.next();
+											switch (escolhendo){
+												case "1":
+													if(!uni.getProfessors().get(mid).getStatusSalario()){
+														System.out.println("\t\t\tStatus do Salario: Não pago.");
+													}else{
 
+														System.out.println("\t\t\tSalario atual: Pago");
+													}
+													break;
+												case "2":
+													if(uni.getProfessors().get(mid).getQuantidadeTurma() > 0){
+														System.out.print("\n\t\t\tDigite id da turma: ");
+														int idTurma = input.nextInt();
+														System.out.print("\n\t\t\tDigite id do aluno: ");
+														int idAluno = input.nextInt();
+														uni.buscaAlunoTurma(idTurma, idAluno);
+													}else{
+														System.out.println("========= Você ainda não está dando aula em nenhuma classe.===============");
+													}
+													break;
+												case "3":
+													cont = false;
+													continua = false;
+													break;
+												default:
+													System.out.println("\t\t\tEscolha Invalida.");
+											}
+										}
+									}
+									if(!achou){
+										// Não encontrou! Perguntar se quer sair.
+										System.out.println("\t\t\tNão encontrado.");
+										System.out.print("\n\t\t\tDeseja sair?\n\t\t\t1-Sim\n\t\t\t2-Não\n\t\t\tEscolha: ");
+										String choice = input.next();
+										if(Objects.equals(choice, "1")){
+											continua = false;
+										}else{
+											System.out.println("\t\t\tCarregando...");
+										}
+									}
 								}
 								break;
 							case "3":
+								// --> LOGIN GERENTE
+								cont = true;
+								continua = true;
+								//Gerente...
+								while(continua){
+                                    System.out.print("\n\t\t\tEntre como seu nome: ");
+                                    String nomeGerente = input.next();
+                                    System.out.print("\n\t\t\tEntre com a sua senha: ");
+                                    String senhaGerente = input.next();
+									boolean achou = false;
+									if (Objects.equals(nomeGerente, uni.getManager().getNome()) && Objects.equals(senhaGerente, uni.getManager().getSenha())){
+										achou = true;
+										System.out.println("-----------PAGINA DO GERENTE----------");
+										System.out.println("\t\t\tSEJA BEM-VINDO: " + uni.getManager().getNome());
+										while (cont){
+											System.out.print("\n\t\t\t1 - Criar turmas\n\t\t\t2 - VER INFORMAÇÃOS SOBRE A UNIVERSIDADE\n\t\t\t3 - Saldo da conta da Universidade\n\t\t\t4 - Criar Cursos\n\t\t\t5 - Sair\n\t\t\tEscolha: ");
+											String escolhendo = input.next();
+											switch (escolhendo){
+												case "1":
+													// --> AS TURMAS SERÃO CRIADAS PELO DIRETOR
+													uni.criarTurmas();
+													break;
+												case "2":
+													// --> TODAS AS INFORMAÇÕES
+													System.out.println("============== INFORMAÇÕES =================");
+													System.out.println("\t\t\tTOTAL DE TURMAS: "+uni.getTurmas().size());
+													System.out.println("\t\t\tTOTAL DE CURSOS: "+uni.getCursos().size());
+													System.out.println("\t\t\tTOTAL DE PROFESSORES: "+uni.getProfessors().size());
+													System.out.println("\t\t\tTOTAL DE ALUNOS: "+uni.getEstudantes().size());
+													System.out.println("\t\t\tSALDO NO CAIXA: "+uni.pegarValorCaixa());
+													System.out.println("\t\t\tSALDO DE DIVIDA:  "+uni.calcularTotaldivida());
+
+													break;
+												case "3":
+													// --> Saldo na conta da Universidade.
+													System.out.println("============== SALDO DO ALUNO ======================");
+													System.out.println("\t\t\tSaldo do Caixa: "+uni.pegarValorCaixa());
+													System.out.println("\t\t\tSaldo de Divida: "+uni.calcularTotaldivida());
+													break;
+												case "4":
+													// --> Vai poder Criar os Cursos.
+													uni.criarCursos();
+													break;
+												case "5":
+													// --> Sair.
+													cont = false;
+													continua = false;
+													break;
+												default:
+													System.out.println("\t\t\tEscolha Invalida.");
+											}
+										}
+									}
+									if(!achou){
+										// Não encontrou! Perguntar se quer sair.
+										System.out.println("\t\t\tNão encontrado.");
+										System.out.print("\n\t\t\tDeseja sair?\n\t\t\t1-Sim\n\t\t\t2-Não\n\t\t\tEscolha: ");
+										String choice = input.next();
+										if(Objects.equals(choice, "1")){
+											continua = false;
+										}else{
+											System.out.println("\t\t\tCarregando...");
+										}
+									}
+								}
+								break;
+							case "4":
 								//Exit
 								keep = false;
 								break;
 							default:
-								System.out.println("Escolha invalido!!");
-						}
+								System.out.println("\t\t\tEscolha invalido!!");
 
+						}
 					}while(keep);
 					break;
 				case "2":
 					do {
 						System.out.println("-----------PAGINA CADASTRO----------");
-						System.out.print("\n\t\t\t1 - Estudante \n\t\t\t2 - Professor\n\t\t3 - Exit\n\t\t\tEscolha(1/2/3): ");
+						System.out.print("\n\t\t\t1 - Estudante \n\t\t\t2 - Professor\n\t\t\t3 - Exit\n\t\t\tEscolha(1/2/3): ");
 						String escolha2 = input.next();
 						switch (escolha2){
 							case "1":
 								//CRIA ALUNO
-								uni.criaEstudante();
+								if(uni.getCursos().size()  > 0){
+									uni.criaEstudante();
+								}
 								break;
 							case "2":
 								//CRIA PROFESSOR
-								uni.criaProfessor();
+								if(uni.getCursos().size() > 0){
+									uni.criaProfessor();
+								}
 								break;
 							case "3":
 								//Exit
 								keep = false;
 								break;
 							default:
-								System.out.println("Escolha invalido!!");
+								System.out.println("\t\t\tEscolha invalido!!");
 						}
 					}while(keep);
 					break;
@@ -77,7 +241,7 @@ public class Main {
 					forward = false;
 					break;
 				default:
-					System.out.println("Opção invalida.");
+					System.out.println("\t\t\tOpção invalida.");
 			}
 			//--------------ENCERRA MENU LOGIN OU CADASTRO-----------------------
 		}

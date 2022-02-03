@@ -7,11 +7,11 @@ public class Cadastro  {
 	private String nome;
 	private String email;
 	private int id;
-	private int tell;
+	private String tell;
 	private String curso;
 	private String senha;
 	
-	public Cadastro(String nome,String email,int id,int tell,String curso, String senha) 
+	public Cadastro(String nome,String email,int id,String tell,String curso, String senha)
 	{
 		this.nome = nome;
 		this.email = email;
@@ -45,11 +45,11 @@ public class Cadastro  {
 		this.id = id;
 	}
 
-	public int getTell() {
+	public String getTell() {
 		return tell;
 	}
 
-	public void setTell(int tell) {
+	public void setTell(String tell) {
 		this.tell = tell;
 	}
 

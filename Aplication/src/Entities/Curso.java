@@ -5,16 +5,14 @@ import java.util.Scanner;
 public class Curso {
 	private String nome;
 	private int id;
-	private String tipo;
-	private int duracao;
+	private String duracao;
 	private String descricao;
 	
 	Scanner sc = new Scanner(System.in);
 	
-	public Curso(int id, String nome, String tipo, int duracao) {
+	public Curso(int id, String nome, String duracao) {
 		this.nome = nome;
 		this.id = id;
-		this.tipo = tipo;
 		this.duracao = duracao;
 	}
 
@@ -29,14 +27,8 @@ public class Curso {
 	public int getId() {
 		return id;
 	}
-	
-	public String getTipo() {
-		return tipo;
-	}
 
-	public int getDuracao() {
-		return duracao;
-	}
+	public String getDuracao() {return duracao;}
 
 	public String getDescricao() {
 		return descricao;
@@ -50,19 +42,12 @@ public class Curso {
 		this.id = id;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
-	public void setDuracao(int duracao) {
+	public void setDuracao(String duracao) {
 		this.duracao = duracao;
 	}
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
-	
-	
 
 }
