@@ -18,8 +18,8 @@ public class BancoDados {
 
     public BancoDados(String nome) {
         this.nome = nome;
-        this.totalEmCaixa = 0;
-        this.totalEmDivida = 0;
+        totalEmCaixa = 0;
+        totalEmDivida = 0;
 
     }
 
@@ -263,7 +263,7 @@ public class BancoDados {
 
             String nomeCurso = listaCurso();
             Turma turma = new Turma(id, nomeCurso);
-            if((estudantes.size() % 3) - turmas.size() * 3 > 0){
+            if((estudantes.size() % 3) - turmas.size() * 3 >= 0){
                 int cont = 0;
                 for(Estudante estudante: estudantes){
                     if(!estudante.getTemSala() && Objects.equals(estudante.getCurso(), nomeCurso)){

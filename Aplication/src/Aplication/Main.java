@@ -181,8 +181,6 @@ public class Main {
 													uni.addEstudantes(aluno1);
 													Estudante aluno2 = new Estudante("arthur", "arthur@gmail.com",3,"999999999","Ciência da Computação.","1234");
 													uni.addEstudantes(aluno2);
-													Estudante aluno3 = new Estudante("james", "james@gmail.com",4,"999999999","Ciência da Computação.","1234");
-													uni.addEstudantes(aluno3);
 													Professor professors = new Professor("Paulo","paulo@gmail.com",1,"999999999","Ciência da Computação.","1234");
 													uni.addProfessors(professors);
 													System.out.println("============== CRIADO COM SUCESSO ======================");
