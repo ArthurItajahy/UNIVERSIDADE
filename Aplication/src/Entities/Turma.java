@@ -15,7 +15,7 @@ public class Turma {
 		this.id = id;
 		this.nomeCurso = nomeCurso;
 	}
-	//---------------------GETTER---------------------
+	//---------------------GETTER---------------------//
 	public int getId() {return id;}
 	public List<Estudante> getConjuntoAluno() {
 		return conjuntoEstudante;}
@@ -24,7 +24,7 @@ public class Turma {
 	public String getNomeCurso() {
 		return nomeCurso;}
 	
-	//----------------------SETTERS(ADD)-----------------------
+	//----------------------SETTERS(ADD)-----------------------//
 	
 	public void setId(int id) {
 		this.id = id;}
