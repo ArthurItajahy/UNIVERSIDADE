@@ -12,7 +12,7 @@ public class BancoDados {
     private final List<Estudante> estudantes = new ArrayList<>();
     private final List<Turma> turmas = new ArrayList<>();
     private final Gerente manager = new Gerente();
-    private String nome;
+    private final String nome;
     private static double totalEmCaixa;
     private static double totalEmDivida;
 
@@ -138,7 +138,7 @@ public class BancoDados {
     }
 
     //======================= PROCURAR ALUNO NA TURMA ==================================
-    public void buscaAlunoTurma(int idTurma, int idAluno) {
+    public void buscaAlunoTurma(int idTurma, int idAluno) {// USADO PARA COLOCAR NOTA.
         // EU VOU PEGAR A LISTA TURMA, E VOU PUSHAR O CONJUNTO ALUNO DE UM ID ESPECIFICO.
         for (int j = 0; j < turmas.size(); j++) {
             if (turmas.get(idTurma - 1).getConjuntoAluno().get(j).getId() == idAluno) {
@@ -150,13 +150,13 @@ public class BancoDados {
 
     //===================== PROCURAR PROFESSOR NA TURMA =================================
     public boolean buscaProfessorTurma(int idTurma, int idProfessor) {
-        for (int i = 0; i < turmas.size(); i++) {
-            if (turmas.get(i).getId() == idTurma) {
-                for(int j = 0; j < turmas.get(i).getConjuntoProfessor().size(); j++){
-                if (turmas.get(i).getConjuntoProfessor().get(j).getId() == idProfessor) {
-                    turmas.get(i).getConjuntoProfessor().get(j).recebeSalario();
-                    pagarProfessor(turmas.get(i).getConjuntoProfessor().get(j));
-                    return true;
+        for (Turma turma : turmas) {
+            if (turma.getId() == idTurma) {
+                for (int j = 0; j < turma.getConjuntoProfessor().size(); j++) {
+                    if (turma.getConjuntoProfessor().get(j).getId() == idProfessor) {
+                        turma.getConjuntoProfessor().get(j).recebeSalario();
+                        pagarProfessor(turma.getConjuntoProfessor().get(j));
+                        return true;
                     }
                 }
             }
@@ -246,10 +246,6 @@ public class BancoDados {
         totalEmCaixa =  totalEmCaixa - (professor.getQuantidadeTurma() * 400);
     }
 
-    // ================== COLOCAR NOTA =======================
-    public void professorColocaNota(Estudante estudante) {
-        estudante.receberNota();
-    }
 
     // ==================== COMANDOS DO GERENTE ========================
     public void criarCursos() {
@@ -259,7 +255,6 @@ public class BancoDados {
         } else {
             id = 1;
         }
-        boolean continua = true;
         System.out.println("\t\t\tID DO CURSO: " + id);
         System.out.print("\n\t\t\tDigite o Nome do curso: ");
         String nomeCurso = input.nextLine();
