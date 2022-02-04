@@ -20,6 +20,7 @@ public class Main {
 		while(forward){
 			//--------------INICIA MENU PRINCIPAL---------------------------
 			boolean keep = true;
+			System.out.println("=============SEJA BEM-VINDO A UNIVERSIDADE "+uni.getNome()+" ============================");
 			System.out.println("-----------PAGINA PRINCIPAL----------");
 			System.out.print("\n\t\t\t1 - LOGIN \n\t\t\t2 - CADASTRO\n\t\t\t3 - Exit\n\t\t\tEscolha(1/2/3): ");
 			String escolha = input.next();
@@ -142,6 +143,7 @@ public class Main {
 								continua = true;
 								//Gerente...
 								while(continua){
+									System.out.println("============ LOGIN GERENTE ==================");
                                     System.out.print("\n\t\t\tEntre como seu nome: ");
                                     String nomeGerente = input.next();
                                     System.out.print("\n\t\t\tEntre com a sua senha: ");
@@ -149,14 +151,15 @@ public class Main {
 									boolean achou = false;
 									if (Objects.equals(nomeGerente, uni.getManager().getNome()) && Objects.equals(senhaGerente, uni.getManager().getSenha())){
 										achou = true;
-										System.out.println("-----------PAGINA DO GERENTE----------");
-										System.out.println("\t\t\tSEJA BEM-VINDO: " + uni.getManager().getNome());
+										System.out.println("=============== SEJA BEM-VINDO: " + uni.getManager().getNome()+"=========================");
 										while (cont){
-											System.out.print("\n\t\t\t1 - Criar turmas\n\t\t\t2 - VER INFORMAÇÃOS SOBRE A UNIVERSIDADE\n\t\t\t3 - Criar Tudo automatico\n\t\t\t4 - Criar Cursos\n\t\t\t5 - Sair\n\t\t\tEscolha: ");
+											System.out.println("================ PAGINA DO GERENTE ==================");
+											System.out.print("\n\t\t\t1 - Criar turmas\n\t\t\t2 - VER INFORMAÇÃOS SOBRE A UNIVERSIDADE\n\t\t\t3 - Criar Tudo automatico\n\t\t\t4 - Criar Cursos\n\t\t\t5 - Pagar professor\n\t\t\t6 - Sair\n\t\t\tEscolha: ");
 											String escolhendo = input.next();
 											switch (escolhendo){
 												case "1":
 													// --> AS TURMAS SERÃO CRIADAS PELO DIRETOR
+													System.out.println("============== CRIANDO NOVA TURMA =====================");
 													uni.criarTurmas();
 													break;
 												case "2":
@@ -181,8 +184,16 @@ public class Main {
 													uni.addEstudantes(aluno1);
 													Estudante aluno2 = new Estudante("arthur", "arthur@gmail.com",3,"999999999","Ciência da Computação.","1234");
 													uni.addEstudantes(aluno2);
+													Estudante aluno3 = new Estudante("luiz", "luiz@gmail.com",4,"999999999","Ciência da Computação.","1234");
+													uni.addEstudantes(aluno3);
+													Estudante aluno4 = new Estudante("amanda", "amanda@gmail.com",5,"999999999","Ciência da Computação.","1234");
+													uni.addEstudantes(aluno4);
+													Estudante aluno5 = new Estudante("esther", "esther@gmail.com",6,"999999999","Ciência da Computação.","1234");
+													uni.addEstudantes(aluno5);
 													Professor professors = new Professor("Paulo","paulo@gmail.com",1,"999999999","Ciência da Computação.","1234");
 													uni.addProfessors(professors);
+													Professor professors1 = new Professor("james","james@gmail.com",2,"999999999","Ciência da Computação.","1234");
+													uni.addProfessors(professors1);
 													System.out.println("============== CRIADO COM SUCESSO ======================");
 													break;
 												case "4":
@@ -190,6 +201,26 @@ public class Main {
 													uni.criarCursos();
 													break;
 												case "5":
+													// --> Pagar professor
+													if(uni.getTurmas().size() > 0) {
+														if(uni.pegarValorCaixa() >= uni.pegarValorDivida()){
+														System.out.print("\n\t\t\tDigite o id da turma: ");
+														int idTurma = input.nextInt();
+														System.out.print("\n\t\t\tDigite o id do Professor: ");
+														int idProfessor = input.nextInt();
+														if(uni.buscaProfessorTurma(idTurma,idProfessor)){
+															System.out.println("\t\t\tPagamento fetuado com sucesso!!");
+														}else {
+															System.out.println("\t\t\tVocê já pagou esse professor!!");
+														}
+														}else {
+															System.out.println("Você não tem caixa para pagar os professores.");
+														}
+													}else {
+														System.out.println("Você não tem nenhuma turma criada. ");
+													}
+													break;
+												case "6":
 													// --> Sair.
 													cont = false;
 													continua = false;

@@ -17,7 +17,7 @@ public class Professor extends Cadastro{
 	public double getQuantidadeTurma(){return this.quantidadeTurma;}
 
 	// ----------------- SETTERS ----------------------
-	public void recebeSalario(double salario) {
+	public void recebeSalario() {
 			this.statusSalario = true;
 	}
 	public void addQuantidadeTurma(){this.quantidadeTurma += 1;}

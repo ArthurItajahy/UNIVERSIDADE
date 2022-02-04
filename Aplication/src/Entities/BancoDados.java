@@ -24,7 +24,10 @@ public class BancoDados {
     }
 
     //=================== GETTER ========================
-    public List<Professor> getProfessors() {return professors;}
+    public List<Professor> getProfessors() {
+        return professors;
+    }
+    public String getNome(){return nome;}
 
     public List<Curso> getCursos() {
         return cursos;
@@ -47,7 +50,7 @@ public class BancoDados {
     }
 
     public double pegarValorDivida() {
-        if(totalEmDivida != calcularTotaldivida()){
+        if (totalEmDivida != calcularTotaldivida()) {
             return calcularTotaldivida();
         }
         return totalEmDivida;
@@ -57,8 +60,10 @@ public class BancoDados {
     public double calcularTotaldivida() {// Calcular total da divida.
         totalEmDivida = 0;
         for (Professor professor : professors) {
-            double quantidadeTurma = professor.getQuantidadeTurma();
-            totalEmDivida = totalEmDivida + (quantidadeTurma * 400);
+            if (!professor.getStatusSalario()) {
+                double quantidadeTurma = professor.getQuantidadeTurma();
+                totalEmDivida = totalEmDivida + (quantidadeTurma * 400);
+            }
         }
         return totalEmDivida;
     }
@@ -131,14 +136,30 @@ public class BancoDados {
     //======================= PROCURAR ALUNO NA TURMA ==================================
     public void buscaAlunoTurma(int idTurma, int idAluno) {
         // EU VOU PEGAR A LISTA TURMA, E VOU PUSHAR O CONJUNTO ALUNO DE UM ID ESPECIFICO.
-            for(int j=0; j<turmas.size();j++){
-                if(turmas.get(idTurma-1).getConjuntoAluno().get(j).getId() == idAluno){
-                    turmas.get(idTurma-1).getConjuntoAluno().get(j).receberNota();
-                }
+        for (int j = 0; j < turmas.size(); j++) {
+            if (turmas.get(idTurma - 1).getConjuntoAluno().get(j).getId() == idAluno) {
+                turmas.get(idTurma - 1).getConjuntoAluno().get(j).receberNota();
+            }
         }
 
     }
 
+    //===================== PROCURAR PROFESSOR NA TURMA =================================
+    public boolean buscaProfessorTurma(int idTurma, int idProfessor) {
+        for (int i = 0; i < turmas.size(); i++) {
+            if (turmas.get(i).getId() == idTurma) {
+                for(int j = 0; j < turmas.get(i).getConjuntoProfessor().size(); j++){
+                if (turmas.get(i).getConjuntoProfessor().get(j).getId() == idProfessor) {
+                    turmas.get(i).getConjuntoProfessor().get(j).recebeSalario();
+                    pagarProfessor(turmas.get(i).getConjuntoProfessor().get(j));
+                    return true;
+                    }
+                }
+            }
+        }
+        return false;
+
+    }
 
     //================== CRIAR ESTUDANTE ======================
     public void criaEstudante() {
@@ -218,6 +239,7 @@ public class BancoDados {
     // ================= PAGAR PROFESSOR =========================
     public void pagarProfessor(Professor professor) {
         totalEmDivida = totalEmDivida - (professor.getQuantidadeTurma() * 400);
+        totalEmCaixa =  totalEmCaixa - (professor.getQuantidadeTurma() * 400);
     }
 
     // ================== COLOCAR NOTA =======================
@@ -242,56 +264,62 @@ public class BancoDados {
         Curso criandoCursos = new Curso(id, nomeCurso, duracao);
         cursos.add(criandoCursos);
     }
+
     //==================== LISTA DE CURSOS ============================
-    public String listaCurso(){
-        for(Curso curso: cursos){
-            System.out.print("\n\t\t\t"+curso.getId()+ " - "+ curso.getNome());
+    public String listaCurso() {
+        for (Curso curso : cursos) {
+            System.out.print("\n\t\t\t" + curso.getId() + " - " + curso.getNome());
         }
         System.out.print("\n\t\t\tEscolha um curso: ");
         int escolha = input.nextInt();
-        return cursos.get(escolha-1).getNome();
+        return cursos.get(escolha - 1).getNome();
     }
+
     // =================== CRIAR TURMAS ==============================
     public void criarTurmas() {
-        if(cursos.size() != 0 && professors.size() != 0 && estudantes.size() != 0){
-            int id;
-            if (getTurmas().size() - 1 > 0) {
-                id = getTurmas().size() - 1;
-            } else {
-                id = 1;
-            }
+        if (cursos.size() != 0 && professors.size() != 0 && estudantes.size() != 0) {
 
-            String nomeCurso = listaCurso();
-            Turma turma = new Turma(id, nomeCurso);
-            if((estudantes.size() % 3) - turmas.size() * 3 >= 0){
-                int cont = 0;
-                for(Estudante estudante: estudantes){
-                    if(!estudante.getTemSala() && Objects.equals(estudante.getCurso(), nomeCurso)){
-                        if(cont < 3){
-                            turma.addEstudante(estudante);
-                            cont++;
-                        }else{
-                            break;
+            int numeroTurmas = estudantes.size() / 3;
+            if (numeroTurmas - (turmas.size() * 3) >= 0) {
+                for (int i = 0; i < numeroTurmas; i++) {
+                    int id = getTurmas().size();
+                    if (id > 0) {
+                        id = getTurmas().get(id - 1).getId() + 1;
+                    } else {
+                        id = 1;
+                    }
+                    System.out.println("\t\t\tEsse é o ID: " + id);
+                    String nomeCurso = listaCurso();
+                    Turma turma = new Turma(id, nomeCurso);
+                    int cont = 0;
+                    for (Estudante estudante : estudantes) {
+                        if (!estudante.getTemSala() && Objects.equals(estudante.getCurso(), nomeCurso)) {
+                            if (cont < 3) {
+                                turma.addEstudante(estudante);
+                                cont++;
+                            } else {
+                                break;
+                            }
                         }
                     }
-                }
-                cont = 0;
-                for(Professor professor: professors){
-                    if(Objects.equals(professor.getCurso(), nomeCurso) && professor.getQuantidadeTurma() == 0){
-                        if(cont < 1){
-                            turma.addProfessor(professor);
-                            professor.addQuantidadeTurma();
-                            cont++;
-                        }else{
-                            break;
+                    cont = 0;
+                    for (Professor professor : professors) {
+                        if (Objects.equals(professor.getCurso(), nomeCurso) && professor.getQuantidadeTurma() == 0) {
+                            if (cont < 1) {
+                                turma.addProfessor(professor);
+                                professor.addQuantidadeTurma();
+                                cont++;
+                            } else {
+                                break;
+                            }
                         }
                     }
+
+                    turmas.add(turma);
+                    System.out.println("=========== TURMA CRIADA COM SUCESSO =============");
                 }
-                turmas.add(turma);
-                System.out.println("=========== TURMA CRIADA COM SUCESSO =============");
             }
-        }
-        else{
+        } else {
             System.out.println("===== Você tem poucos estudantes, professores e não definiu nenhum curso! ========");
         }
     }
