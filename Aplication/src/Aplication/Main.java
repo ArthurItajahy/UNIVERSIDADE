@@ -1,6 +1,9 @@
 package Aplication;
 
 import Entities.BancoDados;
+import Entities.Curso;
+import Entities.Estudante;
+import Entities.Professor;
 
 import java.util.Objects;
 import java.util.Scanner;
@@ -42,12 +45,12 @@ public class Main {
 										//--> Aluno terá que pagar mensalidade.
 										//--> Poderá ver sua nota.
 										while (cont){
-											System.out.print("\n\t\t\t1 - Pagar Mensalidade\n\t\t\t2-Ver notas\n\t\t\t3-Deslogar\n\t\t\tEscolha: ");
+											System.out.print("\n\t\t\t1 - Pagar Mensalidade\n\t\t\t2 - Ver notas\n\t\t\t3 - Deslogar\n\t\t\tEscolha: ");
 											String escolhendo = input.next();
 											switch (escolhendo){
 													case "1":
 														if(uni.pagarMensalidade(uni.getEstudantes().get(mid))){
-															System.out.println("Pago com Sucesso.");
+															System.out.println("\t\t\tPago com Sucesso.");
 														}
 														break;
 													case "2":
@@ -65,12 +68,12 @@ public class Main {
 									if(!achou){
 										// Não encontre perguntar se quer sair.
 										System.out.println("\t\t\tNão encontrado.");
-										System.out.print("\n\t\t\tDeseja sair?\n\t\t\t1-Sim\n\t\t\t2-Não\n\t\t\tEscolha: ");
+										System.out.print("\n\t\t\tDeseja sair?\n\t\t\t1 - Sim\n\t\t\t2 - Não\n\t\t\tEscolha: ");
 										String choice = input.next();
 										if(Objects.equals(choice, "1")){
 											continua = false;
 										}else{
-											System.out.println("Carregando...");
+											System.out.println("\t\t\tCarregando...");
 										}
 									}
 								}
@@ -89,7 +92,7 @@ public class Main {
 										// --> O Professor pode ver se o status se o salario dele foi pago.
 										// --> O PROFESSO PODERÁ DAR NOTAS.
 										while (cont){
-											System.out.print("\n\t\t\t1 - Ver status do salario\n\t\t\t2 - Dar nota\n\t\t\t3-Deslogar\n\t\t\tEscolha: ");
+											System.out.print("\n\t\t\t1 - Ver status do salario\n\t\t\t2 - Dar nota\n\t\t\t3 - Deslogar\n\t\t\tEscolha: ");
 											String escolhendo = input.next();
 											switch (escolhendo){
 												case "1":
@@ -149,7 +152,7 @@ public class Main {
 										System.out.println("-----------PAGINA DO GERENTE----------");
 										System.out.println("\t\t\tSEJA BEM-VINDO: " + uni.getManager().getNome());
 										while (cont){
-											System.out.print("\n\t\t\t1 - Criar turmas\n\t\t\t2 - VER INFORMAÇÃOS SOBRE A UNIVERSIDADE\n\t\t\t3 - Saldo da conta da Universidade\n\t\t\t4 - Criar Cursos\n\t\t\t5 - Sair\n\t\t\tEscolha: ");
+											System.out.print("\n\t\t\t1 - Criar turmas\n\t\t\t2 - VER INFORMAÇÃOS SOBRE A UNIVERSIDADE\n\t\t\t3 - Criar Tudo automatico\n\t\t\t4 - Criar Cursos\n\t\t\t5 - Sair\n\t\t\tEscolha: ");
 											String escolhendo = input.next();
 											switch (escolhendo){
 												case "1":
@@ -164,14 +167,25 @@ public class Main {
 													System.out.println("\t\t\tTOTAL DE PROFESSORES: "+uni.getProfessors().size());
 													System.out.println("\t\t\tTOTAL DE ALUNOS: "+uni.getEstudantes().size());
 													System.out.println("\t\t\tSALDO NO CAIXA: "+uni.pegarValorCaixa());
-													System.out.println("\t\t\tSALDO DE DIVIDA:  "+uni.calcularTotaldivida());
+													System.out.println("\t\t\tSALDO DE DIVIDA:  "+uni.pegarValorDivida());
 
 													break;
 												case "3":
 													// --> Saldo na conta da Universidade.
-													System.out.println("============== SALDO DO ALUNO ======================");
-													System.out.println("\t\t\tSaldo do Caixa: "+uni.pegarValorCaixa());
-													System.out.println("\t\t\tSaldo de Divida: "+uni.calcularTotaldivida());
+													System.out.println("============== CRIAR TUDO AUTOMATICO ======================");
+													Curso primeiro = new Curso(1,"Ciência da Computação.","5 anos");
+													uni.addCursos(primeiro);
+													Estudante aluno = new Estudante("Emmett", "emmett@gmail.com",1,"999999999","Ciência da Computação.","1234");
+													uni.addEstudantes(aluno);
+													Estudante aluno1 = new Estudante("Brown", "brown@gmail.com",2,"999999999","Ciência da Computação.","1234");
+													uni.addEstudantes(aluno1);
+													Estudante aluno2 = new Estudante("arthur", "arthur@gmail.com",3,"999999999","Ciência da Computação.","1234");
+													uni.addEstudantes(aluno2);
+													Estudante aluno3 = new Estudante("james", "james@gmail.com",4,"999999999","Ciência da Computação.","1234");
+													uni.addEstudantes(aluno3);
+													Professor professors = new Professor("Paulo","paulo@gmail.com",1,"999999999","Ciência da Computação.","1234");
+													uni.addProfessors(professors);
+													System.out.println("============== CRIADO COM SUCESSO ======================");
 													break;
 												case "4":
 													// --> Vai poder Criar os Cursos.

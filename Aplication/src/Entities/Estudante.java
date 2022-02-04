@@ -1,5 +1,6 @@
 package Entities;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Estudante extends Cadastro {
@@ -22,26 +23,33 @@ public class Estudante extends Cadastro {
 	public void receberNota(){
 		boolean keep = true;
 		do{
-			System.out.print("\n\t\tQual mês você que dar nota?\n\t\t 1-Primeiro\n\t\t 2-Segundo\n\t\t 3-Terceito\n\t\tEscolha: ");
+			System.out.print("\n\t\t\tQual mês você que dar nota?\n\t\t\t 1-Primeiro\n\t\t\t 2-Segundo\n\t\t\t 3-Terceito\n\t\t\tEscolha: ");
 			String escolha = input.next();
-			System.out.print("\n\t\t\tQual nota você deseja colocar para esse aluno: ");
-			double nota = input.nextDouble();
-			switch (escolha) {
-			case "1":
-				this.nota1 = nota;
-				keep = false;
-				break;
-			case "2":
-				this.nota2 = nota;
-				keep = false;
-				break;
-			case "3":
-				this.nota3 = nota;
-				keep = false;
-				break;
-			default:
-				System.out.println("\t\t\tOpção invalida! ");
-		}
+			try{
+				System.out.print("\n\t\t\tQual nota você deseja colocar para esse aluno: ");//InputMismatchException
+				double nota = input.nextDouble();
+				switch (escolha) {
+					case "1":
+						this.nota1 = nota;
+						keep = false;
+						break;
+					case "2":
+						this.nota2 = nota;
+						keep = false;
+						break;
+					case "3":
+						this.nota3 = nota;
+						keep = false;
+						break;
+					default:
+						System.out.println("\t\t\tOpção invalida! ");
+				}
+
+			}catch (InputMismatchException errors){
+				System.out.println("\t\t\tTente com dessa forma: '0,0' .");
+			}finally {
+				System.out.println("\t\t\tCarregando....");
+			}
 		}while (keep);
 	}
 	public boolean verificarPagamento(){

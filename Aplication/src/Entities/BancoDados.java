@@ -24,9 +24,7 @@ public class BancoDados {
     }
 
     //=================== GETTER ========================
-    public List<Professor> getProfessors() {
-        return professors;
-    }
+    public List<Professor> getProfessors() {return professors;}
 
     public List<Curso> getCursos() {
         return cursos;
@@ -49,11 +47,15 @@ public class BancoDados {
     }
 
     public double pegarValorDivida() {
+        if(totalEmDivida != calcularTotaldivida()){
+            return calcularTotaldivida();
+        }
         return totalEmDivida;
     }
 
     //================= SETTERS(ADD) ======================
     public double calcularTotaldivida() {// Calcular total da divida.
+        totalEmDivida = 0;
         for (Professor professor : professors) {
             double quantidadeTurma = professor.getQuantidadeTurma();
             totalEmDivida = totalEmDivida + (quantidadeTurma * 400);
@@ -77,7 +79,7 @@ public class BancoDados {
         this.professors.add(professors);
     }
 
-    // =================== MANIPULATION DATA ===============================
+    // =================== MANIPULAÇÃO DE DADOS ===============================
     // =================== PROCURA ESTUDANTE =============================
     public int procurarEstudande() {
         System.out.print("\n\t\t\tDigite seu id: ");
