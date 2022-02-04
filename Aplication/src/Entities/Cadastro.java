@@ -2,7 +2,7 @@ package Entities;
 
 
 
-public class Cadastro  {
+public abstract class Cadastro  {
 	
 	private String nome;
 	private String email;

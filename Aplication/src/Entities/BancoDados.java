@@ -87,50 +87,54 @@ public class BancoDados {
     // =================== MANIPULAÇÃO DE DADOS ===============================
     // =================== PROCURA ESTUDANTE =============================
     public int procurarEstudande() {
-        System.out.print("\n\t\t\tDigite seu id: ");
-        int id = input.nextInt();
-        System.out.print("\n\t\t\tDigite sua senha: ");
-        String password = input.next();
-        int low = 0;
-        int higher = getEstudantes().size() - 1;
-        while (low <= higher) {
-            int mid = (low + higher) / 2;
-            if (getEstudantes().get(mid).getId() == id && Objects.equals(getEstudantes().get(mid).getSenha(), password)) {
+        while(true) {
+            System.out.print("\n\t\t\tDigite seu id: ");
+            int id = input.nextInt();
+            System.out.print("\n\t\t\tDigite sua senha: ");
+            String password = input.next();
+            int low = 0;
+            int higher = getEstudantes().size() - 1;
+            while (low <= higher) {
+                int mid = (low + higher) / 2;
+                if (getEstudantes().get(mid).getId() == id && Objects.equals(getEstudantes().get(mid).getSenha(), password)) {
 
-                return mid;
+                    return mid;
+                }
+                if (getEstudantes().get(mid).getId() < id) {
+                    low = mid + 1;
+                }
+                if (getEstudantes().get(mid).getId() > id) {
+                    higher = mid - 1;
+                }
             }
-            if (getEstudantes().get(mid).getId() < id) {
-                low = mid + 1;
-            }
-            if (getEstudantes().get(mid).getId() > id) {
-                higher = mid - 1;
-            }
+            return -1;
         }
-        return -1;
     }
 
     // ======================= PROCURA PROFESSOR ======================================
     public int procurarProfessor() {
-        System.out.print("\n\t\t\tDigite seus ID: ");
-        int id = input.nextInt();
-        System.out.print("\n\t\t\tDigite sua senha: ");
-        String password = input.next();
-        int low = 0;
-        int higher = getProfessors().size() - 1;
-        while (low <= higher) {
-            int mid = (low + higher) / 2;
-            if (getProfessors().get(mid).getId() == id && Objects.equals(getProfessors().get(mid).getSenha(), password)) {
+        while(true) {
+            System.out.print("\n\t\t\tDigite seus ID: ");
+            int id = input.nextInt();
+            System.out.print("\n\t\t\tDigite sua senha: ");
+            String password = input.next();
+            int low = 0;
+            int higher = getProfessors().size() - 1;
+            while (low <= higher) {
+                int mid = (low + higher) / 2;
+                if (getProfessors().get(mid).getId() == id && Objects.equals(getProfessors().get(mid).getSenha(), password)) {
 
-                return mid;
+                    return mid;
+                }
+                if (getProfessors().get(mid).getId() < id) {
+                    low = mid + 1;
+                }
+                if (getProfessors().get(mid).getId() > id) {
+                    higher = mid - 1;
+                }
             }
-            if (getProfessors().get(mid).getId() < id) {
-                low = mid + 1;
-            }
-            if (getProfessors().get(mid).getId() > id) {
-                higher = mid - 1;
-            }
+            return -1;
         }
-        return -1;
     }
 
     //======================= PROCURAR ALUNO NA TURMA ==================================
@@ -171,15 +175,15 @@ public class BancoDados {
         }
         System.out.println("\t\t\tEsse é o Seu ID: " + id);
         System.out.print("\n\t\t\tEntre com o seu nome: ");
-        String nome = input.next();
+        String nome = input.nextLine();
         System.out.print("\n\t\t\tEntre com seu Curso:");
         String curso = listaCurso();
         System.out.print("\n\t\t\tEntre com seu telefone:");
-        String tell = input.next();
+        String tell = input.nextLine();
         System.out.print("\n\t\t\tEntre com seu email: ");
-        String email = input.next();
+        String email = input.nextLine();
         System.out.print("\n\t\t\tEntre com sua Senha: ");
-        String senha = input.next();
+        String senha = input.nextLine();
         Estudante estudante = new Estudante(nome, email, id, tell, curso, senha);
         System.out.println("========== CONTA CRIADA COM SUCESSO ============");
         System.out.print("\n\t\t\tEscreva 'Sair': ");
@@ -203,15 +207,15 @@ public class BancoDados {
         }
         System.out.print("\n\t\t\tEsse é o seu ID: " + id);
         System.out.print("\n\t\t\tDigite seu nome: ");
-        String nome = input.next();
+        String nome = input.nextLine();
         System.out.print("\n\t\t\tDigite seu curso: ");
         String curso = listaCurso();
         System.out.print("\n\t\t\tDigite seu telefone: ");
-        String tell = input.next();
+        String tell = input.nextLine();
         System.out.print("\n\t\t\tDigite o seu email: ");
-        String email = input.next();
+        String email = input.nextLine();
         System.out.print("\n\t\t\tDigite sua senha: ");
-        String senha = input.next();
+        String senha = input.nextLine();
         Professor professor = new Professor(nome, email, id, tell, curso, senha);
         System.out.println("========== CONTA CRIADA COM SUCESSO ============");
         System.out.print("\n\t\t\tEscreva 'Sair': ");

@@ -20,7 +20,7 @@ public class Main {
 		while(forward){
 			//--------------INICIA MENU PRINCIPAL---------------------------
 			boolean keep = true;
-			System.out.println("=============SEJA BEM-VINDO A UNIVERSIDADE "+uni.getNome()+" ============================");
+			System.out.println("=============  SEJA BEM-VINDO A UNIVERSIDADE "+uni.getNome()+" ============================");
 			System.out.println("-----------PAGINA PRINCIPAL----------");
 			System.out.print("\n\t\t\t1 - LOGIN \n\t\t\t2 - CADASTRO\n\t\t\t3 - Exit\n\t\t\tEscolha(1/2/3): ");
 			String escolha = input.next();
@@ -127,7 +127,7 @@ public class Main {
 									if(!achou){
 										// Não encontrou! Perguntar se quer sair.
 										System.out.println("\t\t\tNão encontrado.");
-										System.out.print("\n\t\t\tDeseja sair?\n\t\t\t1-Sim\n\t\t\t2-Não\n\t\t\tEscolha: ");
+										System.out.print("\n\t\t\tDeseja sair?\n\t\t\t1 - Sim\n\t\t\t2 - Não\n\t\t\tEscolha: ");
 										String choice = input.next();
 										if(Objects.equals(choice, "1")){
 											continua = false;
@@ -233,7 +233,7 @@ public class Main {
 									if(!achou){
 										// Não encontrou! Perguntar se quer sair.
 										System.out.println("\t\t\tNão encontrado.");
-										System.out.print("\n\t\t\tDeseja sair?\n\t\t\t1-Sim\n\t\t\t2-Não\n\t\t\tEscolha: ");
+										System.out.print("\n\t\t\tDeseja sair?\n\t\t\t1 - Sim\n\t\t\t2 - Não\n\t\t\tEscolha: ");
 										String choice = input.next();
 										if(Objects.equals(choice, "1")){
 											continua = false;
@@ -263,12 +263,16 @@ public class Main {
 								//CRIA ALUNO
 								if(uni.getCursos().size()  > 0){
 									uni.criaEstudante();
+								}else{
+									System.out.println("\t\t\tNão tem curso para se inscrever.");
 								}
 								break;
 							case "2":
 								//CRIA PROFESSOR
 								if(uni.getCursos().size() > 0){
 									uni.criaProfessor();
+								}else{
+									System.out.println("\t\t\tNão tem curso para dar aula.");
 								}
 								break;
 							case "3":
